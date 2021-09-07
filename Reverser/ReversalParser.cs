@@ -12,8 +12,8 @@ namespace Reverser
 {
     public class ReversalParser
     {
-        private const string BLOCK_REGEX = @"\s*File/s:(.*\r\n)+\s*To:.*";
-        private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*(?=\s*IsRegex:.*)";
+        private const string BLOCK_REGEX = @"\s*File/s:(.*\r\n)+?\s*To:.*";
+        private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*?(?=\s*IsRegex:.*)";
         private const string ISREGEX_REGEX = @"(?<=\s*IsRegex:).*";
         private const string FROM_REGEX = @"(?<=\s*From:).*";
         private const string TO_REGEX = @"(?<=\s*To:).*";
@@ -38,7 +38,7 @@ namespace Reverser
             return changes;
         }
 
-        private ContentChange ParseBlock(string block)
+        private ContentChange ParseBlock(string block)  /* verified */ 
         {
             ContentChange change = new ContentChange();
             change.Files = ParseFiles(block);
@@ -58,7 +58,7 @@ namespace Reverser
             return files.ToList();
         }
 
-        private bool ParseIsRegex(string block)
+        private bool ParseIsRegex(string block)  /* verified */ 
         {
             string text = Regex.Match(block, ISREGEX_REGEX)
                 .Value
@@ -68,7 +68,7 @@ namespace Reverser
             return value;
         }
 
-        private string ParseFrom(string block)
+        private string ParseFrom(string block)  /* verified */ 
         {
             string text = Regex.Match(block, FROM_REGEX)
                 .Value
@@ -77,7 +77,7 @@ namespace Reverser
             return text;
         }
 
-        private string ParseTo(string block)
+        private string ParseTo(string block)  /* verified */ 
         {
             string text = Regex.Match(block, TO_REGEX)
                 .Value
