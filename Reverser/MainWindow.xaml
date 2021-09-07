@@ -5,12 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reverser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" FontSize="36">
+        Title="Reverser" Height="361.702" Width="622.34" FontSize="36">
+    <Window.Resources>
+        <Style x:Name="GridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="MidnightBlue"/>
+        </Style>
+        <Style x:Name="ButtonStyle" TargetType="Button">
+            <Setter Property="MinHeight" Value="75"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="FontSize" Value="56"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+
+
     <Grid>
         <Button x:Name="ForwardButton" Content="&#x2794;" ToolTip="Forward" 
-                HorizontalAlignment="Left" Margin="425,186,0,0" VerticalAlignment="Top" Width="75"/>
+                HorizontalAlignment="Right" Margin="0,10,20,0" VerticalAlignment="Top"/>
         <Button x:Name="BackButton" Content="&#x2794;" ToolTip="Back" 
-                HorizontalAlignment="Left" Margin="544,264,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5">
+                HorizontalAlignment="Right" Margin="0,100,20,0" VerticalAlignment="Top" 
+                RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1" ScaleX="-1"/>
@@ -19,6 +33,10 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Button.RenderTransform>
+        </Button>
+        <Button x:Name="ExitButton" Command="{Binding ExitCommand}" Content="&#x2716;" ToolTip="Back" 
+                FontSize="42"
+            HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom">
         </Button>
 
     </Grid>

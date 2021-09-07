@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+#pragma warning disable
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +23,13 @@ namespace Reverser
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel _vm;
+
         public MainWindow()
         {
+            _vm = new ViewModel();
+            this.DataContext = _vm;
+
             InitializeComponent();
         }
     }
