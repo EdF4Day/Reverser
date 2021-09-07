@@ -17,35 +17,6 @@ namespace ReverserTests
     public class ReversalParserTests
     {
         [TestMethod()]
-        public void Experiment__ContentChange__SameContents__AreEqual()  /* working */ 
-        {
-            //**  Arrange.  **//
-            ContentChange left = new ContentChange
-            {
-                Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
-                From = "abc zyx",
-                To = "xyz cba"
-            };
-
-            ContentChange right = new ContentChange
-            {
-                Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
-                From = "abc zyx",
-                To = "xyz cba"
-            };
-
-
-            //**  Act.  **//
-
-
-            //**  Assert.  **//
-            Assert.AreEqual(left, right);
-        }
-
-
-        [TestMethod()]
         public void ParseToChanges__KnownSingleChangeBlock__CorrectOutputChangeObject()  /* working */ 
         {
             //**  Arrange.  **//
@@ -76,7 +47,7 @@ To: xyz
 
             List<ContentChange> expecteds = new List<ContentChange> { expected };
 
-            CollectionAssert.AreEquivalent(expecteds, actuals);
+            CollectionAssert.AreEqual(expecteds, actuals);
         }
 
     }
