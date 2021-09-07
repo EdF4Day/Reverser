@@ -16,6 +16,11 @@ namespace ReverserTests
     [TestClass()]
     public class ReversalParserTests
     {
+        /* parsing multiple files in one block */
+        /* parsing two blocks */
+        /* parsing blocks with white space amid them */
+        /* parsing blocks with other text around and amid them */
+
         [TestMethod()]
         public void ParseToChanges__KnownSingleChangeBlock__CorrectOutputChangeObject()  /* working */ 
         {
