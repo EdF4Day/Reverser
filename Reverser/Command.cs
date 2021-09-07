@@ -41,8 +41,6 @@ namespace Reverser
 
         #region Constructors and dependencies
 
-        /* these ctors name hard delegate types in their parameter lists, but lambdas can be used */
-
         public Command(Func<object, bool> setCanEnact, Action<object> enactor)
         {
             this.CanEnact = setCanEnact;
@@ -58,7 +56,7 @@ namespace Reverser
 
         public bool CanExecute(object parameter)
         {
-            /* invokes the delegate to get the value */
+            /* Invokes the delegate to get the value. */
             bool canEnact = this.CanEnact(parameter);
             return canEnact;
         }
@@ -68,7 +66,7 @@ namespace Reverser
 
         public void Execute(object parameter)
         {
-            /* invokes the delegate */
+            /* Invokes the delegate. */
             this.Enact(parameter);
         }
 

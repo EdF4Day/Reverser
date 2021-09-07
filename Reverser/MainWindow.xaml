@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reverser"
         mc:Ignorable="d"
-        Title="Reverser" Height="361.702" Width="622.34" FontSize="36">
+        Title="Reverser" Height="361.702" Width="622.34" FontSize="36"
+        >
     <Window.Resources>
         <Style x:Name="GridStyle" TargetType="Grid">
             <Setter Property="Background" Value="MidnightBlue"/>
@@ -18,11 +19,19 @@
         </Style>
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding ExitCommand}"/>
+        <KeyBinding Key="Return" Modifiers="Ctrl"  Command="{Binding ChangeForwardCommand}"/>
+        <KeyBinding Key="Return" Modifiers="Shift+Ctrl" Command="{Binding ChangeBackCommand}"/>
+    </Window.InputBindings>
 
     <Grid>
         <Button x:Name="ForwardButton" Content="&#x2794;" ToolTip="Forward" 
+                Command="{Binding ChangeForwardCommand}"
                 HorizontalAlignment="Right" Margin="0,10,20,0" VerticalAlignment="Top"/>
+        
         <Button x:Name="BackButton" Content="&#x2794;" ToolTip="Back" 
+                Command="{Binding ChangeBackCommand}"
                 HorizontalAlignment="Right" Margin="0,100,20,0" VerticalAlignment="Top" 
                 RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
@@ -34,6 +43,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        
         <Button x:Name="ExitButton" Command="{Binding ExitCommand}" Content="&#x2716;" ToolTip="Back" 
                 FontSize="42"
             HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom">
