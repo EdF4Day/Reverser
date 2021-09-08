@@ -3,7 +3,8 @@
   <Profiles />
   <Settings>
     <Setting Name="Reversings" Type="System.String" Scope="User">
-      <Value Profile="(Default)">File/s:
+      <Value Profile="(Default)">
+File/s:
 C:\Users\Ed\Desktop\Reversible.txt
 
 IsRegex: false

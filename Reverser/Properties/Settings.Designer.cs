@@ -25,8 +25,8 @@ namespace Reverser.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("File/s:\r\nC:\\Users\\Ed\\Desktop\\Reversible.txt\r\n\r\nIsRegex: false\r\nFrom: abc\r\nTo: xyz" +
-            "\r\n")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\r\nFile/s:\r\nC:\\Users\\Ed\\Desktop\\Reversible.txt\r\n\r\nIsRegex: false\r\nFrom: abc\r\nTo: x" +
+            "yz\r\n")]
         public string Reversings {
             get {
                 return ((string)(this["Reversings"]));
