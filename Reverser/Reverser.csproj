@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Changer.cs" />
     <Compile Include="ContentChange.cs" />
     <Compile Include="ContentReverser.cs" />
     <Compile Include="ChangeSource.cs" />

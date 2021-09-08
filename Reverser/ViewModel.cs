@@ -25,8 +25,8 @@ namespace Reverser
 
         private void InitCommands()
         {
-            ChangeForwardCommand = new Command((_) => true, (_) => { System.Windows.MessageBox.Show("Forward"); });
-            ChangeBackCommand = new Command((_) => true, (_) => { System.Windows.MessageBox.Show("Back"); });
+            ChangeForwardCommand = new Command((_) => true, (_) => { _reverser.ChangeAllForward(); });
+            ChangeBackCommand = new Command((_) => true, (_) => { _reverser.ChangeAllBack(); });
 
             ExitCommand = new Command((_) => true, (_) => { App.Current.Shutdown(); });
         }
