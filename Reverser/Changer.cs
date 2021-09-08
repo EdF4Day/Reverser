@@ -12,14 +12,26 @@ namespace Reverser
 {
     public class Changer : IChanger
     {
+        #region Fields
+
         private IFileStore _store;
 
-        public Changer(IFileStore store = null)
+        #endregion Fields
+
+
+        #region Constructors
+
+        public Changer(IFileStore store = null)  /* verified */
         {
             _store = store ?? new FileStore();
         }
 
-        public void ChangeForward(ContentChange change)
+        #endregion Constructors
+
+
+        #region IChanger
+
+        public void ChangeForward(ContentChange change)  /* passed */
         {
             foreach (string file in change.Files)
             {
@@ -27,7 +39,7 @@ namespace Reverser
             }
         }
 
-        public void ChangeBack(ContentChange change)
+        public void ChangeBack(ContentChange change)  /* passed */
         {
             foreach (string file in change.Files)
             {
@@ -36,7 +48,12 @@ namespace Reverser
             }
         }
 
-        private void Change(string file, string from, string to, bool isRegex)
+        #endregion IChanger
+
+
+        #region Shared dependencies
+
+        private void Change(string file, string from, string to, bool isRegex)  /* verified */
         {
             if (!_store.Exists(file))
             {
@@ -56,5 +73,7 @@ namespace Reverser
 
             _store.Write(file, content);
         }
+
+        #endregion Shared dependencies
     }
 }

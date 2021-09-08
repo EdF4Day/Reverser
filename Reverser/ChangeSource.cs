@@ -11,7 +11,15 @@ namespace Reverser
 {
     public class ChangeSource : IChangeSource
     {
+        #region Fields
+
         private string _sourceText;
+
+        #endregion Fields
+
+
+        #region IChangeSource
+
         public string SourceText  /* passed */
         {
             get
@@ -24,15 +32,27 @@ namespace Reverser
             }
         }
 
+        #endregion IChangeSource
+
+
+        #region Constructors
+
         public ChangeSource()  /* ok */
         {
             /* No operations. */
         }
+
+        #endregion Constructors
+
+
+        #region Dependencies of .SourceText
 
         private string ReadSource()  /* verified */
         {
             string source = Properties.Settings.Default.Reversings;
             return source;
         }
+
+        #endregion Dependencies of .SourceText
     }
 }

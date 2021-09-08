@@ -36,7 +36,7 @@ namespace Reverser
         #endregion Constructors
 
 
-        #region Key method ParseToChanges(), and dependencies
+        #region IReversalParser
 
         public List<ContentChange> ParseToChanges(string source)  /* passed */
         {
@@ -54,6 +54,8 @@ namespace Reverser
 
             return changes;
         }
+
+        #endregion IReversalParser
 
 
         #region Dependencies of ParseToChanges()
@@ -108,6 +110,5 @@ namespace Reverser
 
         #endregion Dependencies of ParseToChanges()
 
-        #endregion Key method ParseToChanges(), and dependencies
     }
 }
