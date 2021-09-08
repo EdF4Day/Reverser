@@ -12,6 +12,8 @@ namespace Reverser
 {
     public class ReversalParser
     {
+        #region Definitions
+
         private const string BLOCK_REGEX = @"\s*File/s:(.*\r\n)+?\s*To:.*";
         private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*?(?=\s*IsRegex:.*)";
         private const string ISREGEX_REGEX = @"(?<=\s*IsRegex:).*";
@@ -21,7 +23,22 @@ namespace Reverser
         private static readonly string[] FILE_SPLIT_LITERAL = { Environment.NewLine };
         private const string VALUE_REGEX = @":.*";
 
-        public List<ContentChange> ParseToChanges(string source)
+        #endregion Definitions
+
+
+        #region Constructors
+
+        public ReversalParser()
+        {
+            /* No operations. */
+        }
+
+        #endregion Constructors
+
+
+        #region Key method ParseToChanges(), and dependencies
+
+        public List<ContentChange> ParseToChanges(string source)  /* passed */
         {
             MatchCollection blocks = Regex.Matches(source, BLOCK_REGEX);
 
@@ -38,7 +55,10 @@ namespace Reverser
             return changes;
         }
 
-        private ContentChange ParseBlock(string block)  /* verified */ 
+
+        #region Dependencies of ParseToChanges()
+
+        private ContentChange ParseBlock(string block)  /* verified */
         {
             ContentChange change = new ContentChange();
             change.Files = ParseFiles(block);
@@ -49,7 +69,7 @@ namespace Reverser
             return change;
         }
 
-        private List<string> ParseFiles(string block)
+        private List<string> ParseFiles(string block)  /* verified */
         {
             Match section = Regex.Match(block, FILES_REGEX);
             string text = section.Value;
@@ -58,7 +78,7 @@ namespace Reverser
             return files.ToList();
         }
 
-        private bool ParseIsRegex(string block)  /* verified */ 
+        private bool ParseIsRegex(string block)  /* verified */
         {
             string text = Regex.Match(block, ISREGEX_REGEX)
                 .Value
@@ -68,7 +88,7 @@ namespace Reverser
             return value;
         }
 
-        private string ParseFrom(string block)  /* verified */ 
+        private string ParseFrom(string block)  /* verified */
         {
             string text = Regex.Match(block, FROM_REGEX)
                 .Value
@@ -77,7 +97,7 @@ namespace Reverser
             return text;
         }
 
-        private string ParseTo(string block)  /* verified */ 
+        private string ParseTo(string block)  /* verified */
         {
             string text = Regex.Match(block, TO_REGEX)
                 .Value
@@ -85,5 +105,9 @@ namespace Reverser
 
             return text;
         }
+
+        #endregion Dependencies of ParseToChanges()
+
+        #endregion Key method ParseToChanges(), and dependencies
     }
 }
