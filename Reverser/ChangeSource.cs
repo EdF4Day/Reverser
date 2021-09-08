@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Reverser
 {
-    public class ChangeSource
+    public class ChangeSource : IChangeSource
     {
         private string _sourceText;
-        public string SourceText  /* passed */ 
+        public string SourceText  /* passed */
         {
             get
             {
@@ -24,12 +24,12 @@ namespace Reverser
             }
         }
 
-        public ChangeSource()  /* ok */ 
+        public ChangeSource()  /* ok */
         {
             /* No operations. */
         }
 
-        private string ReadSource()  /* verified */ 
+        private string ReadSource()  /* verified */
         {
             string source = Properties.Settings.Default.Reversings;
             return source;

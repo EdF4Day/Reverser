@@ -59,6 +59,11 @@
     <Compile Include="ContentChange.cs" />
     <Compile Include="ContentReverser.cs" />
     <Compile Include="ChangeSource.cs" />
+    <Compile Include="FileStore.cs" />
+    <Compile Include="IChanger.cs" />
+    <Compile Include="IChangeSource.cs" />
+    <Compile Include="IFileStore.cs" />
+    <Compile Include="IReversalParser.cs" />
     <Compile Include="ReversalParser.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">

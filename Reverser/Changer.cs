@@ -7,12 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace Reverser
 {
-    public class Changer
+    public class Changer : IChanger
     {
+        private IFileStore _store;
+
+        public Changer(IFileStore store = null)
+        {
+            _store = store ?? new FileStore();
+        }
+
         public void ChangeForward(ContentChange change)
         {
             foreach (string file in change.Files)
@@ -30,13 +36,14 @@ namespace Reverser
             }
         }
 
-        private void Change(string file, string from, string to, bool isRegex) {
-            if (!File.Exists(file))
+        private void Change(string file, string from, string to, bool isRegex)
+        {
+            if (!_store.Exists(file))
             {
                 return;
             }
 
-            string content = File.ReadAllText(file);
+            string content = _store.Read(file);
 
             if (isRegex)
             {
@@ -47,7 +54,7 @@ namespace Reverser
                 content = content.Replace(from, to);
             }
 
-            File.WriteAllText(file, content);
+            _store.Write(file, content);
         }
     }
 }

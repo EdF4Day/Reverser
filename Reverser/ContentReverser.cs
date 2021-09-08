@@ -11,15 +11,15 @@ namespace Reverser
 {
     public class ContentReverser
     {
-        ChangeSource _source;
-        ReversalParser _parser;
-        Changer _changer;
+        IChangeSource _source;
+        IReversalParser _parser;
+        IChanger _changer;
 
-        public ContentReverser()
+        public ContentReverser(IChangeSource source = null, IReversalParser parser = null, IChanger changer = null)
         {
-            _source = new ChangeSource();
-            _parser = new ReversalParser();
-            _changer = new Changer();
+            _source = source ?? new ChangeSource();
+            _parser = parser ?? new ReversalParser();
+            _changer = changer ?? new Changer();
         }
 
         public void ChangeAllForward()

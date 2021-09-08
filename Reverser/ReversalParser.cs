@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Reverser
 {
-    public class ReversalParser
+    public class ReversalParser : IReversalParser
     {
         #region Definitions
 
