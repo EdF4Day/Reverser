@@ -11,9 +11,16 @@ namespace Reverser
 {
     public class ContentReverser
     {
+        #region Components
+
         IChangeSource _source;
         IReversalParser _parser;
         IChanger _changer;
+
+        #endregion Components
+
+
+        #region Constructors
 
         public ContentReverser(IChangeSource source = null, IReversalParser parser = null, IChanger changer = null)
         {
@@ -22,7 +29,12 @@ namespace Reverser
             _changer = changer ?? new Changer();
         }
 
-        public void ChangeAllForward()  /* passed */ 
+        #endregion Constructors
+
+
+        #region Key methods
+
+        public void ChangeAllForward()  /* passed */
         {
             string source = _source.SourceText;
             List<ContentChange> changes = _parser.ParseToChanges(source);
@@ -33,7 +45,7 @@ namespace Reverser
             }
         }
 
-        public void ChangeAllBack()
+        public void ChangeAllBack()  /* passed */
         {
             string source = _source.SourceText;
             List<ContentChange> changes = _parser.ParseToChanges(source);
@@ -43,5 +55,7 @@ namespace Reverser
                 _changer.ChangeBack(change);
             }
         }
+
+        #endregion Key methods
     }
 }

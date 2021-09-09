@@ -15,7 +15,18 @@
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation From="Green" Duration="0:0:01.0" 
+                                <ColorAnimation From="MediumSeaGreen" Duration="0:0:02.0" 
+                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
+                                                />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding DidThrow}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="LemonChiffon" Duration="0:0:02.0"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                 />
                             </Storyboard>

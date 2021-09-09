@@ -17,7 +17,7 @@ namespace ReverserTests
     public class ContentReverserTests
     {
         [TestMethod()]
-        public void ChangeAllForward__RepresentativeMaterial__CorrectCallsAndPassingsMade()  /* working */ 
+        public void ChangeAllForward__SpoofedValues__CorrectCallsAndPassingsMade()  /* working */ 
         {
             //**  Arrange.  **//
             Mock<IChangeSource> _sourceMocker = new Mock<IChangeSource>();
@@ -58,8 +58,9 @@ namespace ReverserTests
             CollectionAssert.AreEqual(expecteds, actuals);
         }
 
+
         [TestMethod()]
-        public void ChangeAllBack__RepresentativeMaterial__CorrectCallsAndPassingsMade()  /* working */ 
+        public void ChangeAllBack__SpoofedValues__CorrectCallsAndPassingsMade()  /* working */ 
         {
             //**  Arrange.  **//
             Mock<IChangeSource> _sourceMocker = new Mock<IChangeSource>();

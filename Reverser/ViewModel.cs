@@ -64,7 +64,7 @@ namespace Reverser
             set
             {
                 _didChange = value; 
-                WhenPropertyChanged(nameof(DidThrow));
+                WhenPropertyChanged(nameof(DidChange));
             }
         }
 
@@ -133,8 +133,8 @@ namespace Reverser
             {
                 _isChanging = true;
 
-                //// Actually changing.
-                //_reverser.ChangeAllForward();
+                // Actually changing.
+                _reverser.ChangeAllForward();
 
                 DidChange = true;
             }
