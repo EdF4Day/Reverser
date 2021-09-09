@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="ChangerTests.cs" />
     <Compile Include="ChangeSourceTests.cs" />
+    <Compile Include="ContentReverserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContentChangeTests.cs" />
     <Compile Include="ReversalParserTests.cs" />
