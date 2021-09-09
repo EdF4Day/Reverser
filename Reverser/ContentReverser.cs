@@ -22,7 +22,7 @@ namespace Reverser
             _changer = changer ?? new Changer();
         }
 
-        public void ChangeAllForward()
+        public void ChangeAllForward()  /* passed */ 
         {
             string source = _source.SourceText;
             List<ContentChange> changes = _parser.ParseToChanges(source);
