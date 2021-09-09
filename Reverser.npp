@@ -1,0 +1,46 @@
+
+Reverser
+% % % % %
+
+
+UX:
+
+✓  Forward button ( maybe -> )
+✓  Back button ( maybe <- )
+
+✓  Confirmation flash or splash 
+		× with direction (f or b)
+
+✓  Maybe fail flash animation
+
+
+
+
+Data:
+
+✓ File path + name + extension
+	× Forwards
+		× is-regex
+		✓ from
+		✓ to
+
+	× Backs
+		× is-regex
+		× from
+		× to
+
+
+
+
+Code:
+
+✓ Command objects
+
+✓ Text reader
+
+✓ Replace text
+		× with regex 
+		✓ or not
+
+✓ If any throw when replacing, fail splash
+
