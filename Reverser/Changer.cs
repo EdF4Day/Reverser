@@ -35,7 +35,7 @@ namespace Reverser
         {
             foreach (string file in change.Files)
             {
-                Change(file, change.From, change.To, change.IsRegex);
+                Change(file, change.From, change.To);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Reverser
             foreach (string file in change.Files)
             {
                 /* .From and .To reversed to change back. */
-                Change(file, change.To, change.From, change.IsRegex);
+                Change(file, change.To, change.From);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Reverser
 
         #region Shared dependencies
 
-        private void Change(string file, string from, string to, bool isRegex)  /* verified */
+        private void Change(string file, string from, string to)  /* verified */
         {
             if (!_store.Exists(file))
             {
@@ -62,14 +62,8 @@ namespace Reverser
 
             string content = _store.Read(file);
 
-            if (isRegex)
-            {
-                content = Regex.Replace(content, from, to);
-            }
-            else
-            {
-                content = content.Replace(from, to);
-            }
+            // Actually changing.
+            content = content.Replace(from, to);
 
             _store.Write(file, content);
         }

@@ -28,7 +28,6 @@ namespace ReverserTests
 File/s:
 X:\Some\Path\Reversible.txt
 
-IsRegex: true
 From: abc
 To: xyz
 ";
@@ -42,7 +41,6 @@ To: xyz
             ContentChange expected = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
-                IsRegex = true,
                 From = "abc",
                 To = "xyz"
             };
@@ -65,7 +63,6 @@ X:\Some\Other\Path\Reversible-B.txt
 X:\Some\Path\Reversible-C.txt
 X:\Yet\Another\Path\Of\Some\Kind\Reversible-D.txt
 
-IsRegex: true
 From: abc
 To: xyz
 ";
@@ -84,7 +81,6 @@ To: xyz
                     @"X:\Some\Path\Reversible-C.txt",
                     @"X:\Yet\Another\Path\Of\Some\Kind\Reversible-D.txt"
                 },
-                IsRegex = true,
                 From = "abc",
                 To = "xyz"
             };
@@ -104,14 +100,12 @@ To: xyz
 File/s:
 X:\Some\Path\Reversible.txt
 
-IsRegex: true
 From: abc
 To: xyz
 
 File/s:
 X:\Some\Other\Path\AnotherReversible.txt
 
-IsRegex: true
 From: [qrs]{0:2}
 To: abc
 
@@ -126,7 +120,6 @@ To: abc
             ContentChange expFirst = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
-                IsRegex = true,
                 From = "abc",
                 To = "xyz"
             };
@@ -134,7 +127,6 @@ To: abc
             ContentChange expSecond = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Other\Path\AnotherReversible.txt" },
-                IsRegex = true,
                 From = "[qrs]{0:2}",
                 To = "abc"
             };
@@ -155,14 +147,12 @@ To: abc
 
 X:\Some\Path\Reversible.txt
 
-IsRegex:           true   
-
 From: abc
+
+
 To: xyz
 File/s:
 X:\Some\Other\Path\AnotherReversible.txt
-
-IsRegex: true      
 From:  [qrs]{0:2}
 
 
@@ -181,7 +171,6 @@ To: abc";
             ContentChange expFirst = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
-                IsRegex = true,
                 From = "abc",
                 To = "xyz"
             };
@@ -189,7 +178,6 @@ To: abc";
             ContentChange expSecond = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Other\Path\AnotherReversible.txt" },
-                IsRegex = true,
                 From = "[qrs]{0:2}",
                 To = "abc"
             };
@@ -211,10 +199,10 @@ File/s:
 
 X:\Some\Path\Reversible.txt
 
-IsRegex:           true   
-
-This is the text to be found and changed:
 From: abc
+# The ""From"" line is the text to be found and changed.
+# Comments can't come between ""File/s:"" and ""From:"", 
+  because then they're treated as targeted files.
 
 
 # This text replaces whatever is found in ""From"":
@@ -224,7 +212,6 @@ To: xyz
 File/s:
 X:\Some\Other\Path\AnotherReversible.txt
 
-IsRegex: true      
 From:  [qrs]{0:2}
 
 To: abc
@@ -246,7 +233,6 @@ To: abc
             ContentChange expFirst = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
-                IsRegex = true,
                 From = "abc",
                 To = "xyz"
             };
@@ -254,7 +240,6 @@ To: abc
             ContentChange expSecond = new ContentChange()
             {
                 Files = new List<string> { @"X:\Some\Other\Path\AnotherReversible.txt" },
-                IsRegex = true,
                 From = "[qrs]{0:2}",
                 To = "abc"
             };

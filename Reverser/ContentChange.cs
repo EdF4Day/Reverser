@@ -14,7 +14,6 @@ namespace Reverser
         #region Properties
 
         public List<string> Files { get; set; }
-        public bool IsRegex { get; set; }
         public string From { get; set; }
         public string To { get; set; }
 
@@ -28,10 +27,9 @@ namespace Reverser
             /* No operations. */
         }
 
-        public ContentChange(List<string> files, bool isRegex, string from, string to)  /* ok */
+        public ContentChange(List<string> files, string from, string to)  /* ok */
         {
             Files = files;
-            IsRegex = isRegex;
             From = from;
             To = to;
         }
@@ -49,7 +47,6 @@ namespace Reverser
                 bool filesAreEqual = this.Files.SequenceEqual(that.Files);
 
                 return filesAreEqual
-                    && this.IsRegex == that.IsRegex
                     && this.From == that.From
                     && this.To == that.To
                     ;

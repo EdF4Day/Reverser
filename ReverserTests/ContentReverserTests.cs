@@ -27,8 +27,8 @@ namespace ReverserTests
             _sourceMocker.Setup(x => x.SourceText)
                 .Returns("source-text");
 
-            ContentChange changeOne = new ContentChange(null, true, "from-1", "to-1");
-            ContentChange changeTwo = new ContentChange(null, true, "from-2", "to-2");
+            ContentChange changeOne = new ContentChange(null, "from-1", "to-1");
+            ContentChange changeTwo = new ContentChange(null, "from-2", "to-2");
 
             List<ContentChange> expecteds = new List<ContentChange> { changeOne, changeTwo };
             List<ContentChange> actuals = new List<ContentChange>();
@@ -70,8 +70,8 @@ namespace ReverserTests
             _sourceMocker.Setup(x => x.SourceText)
                 .Returns("source-text");
 
-            ContentChange changeOne = new ContentChange(null, true, "from-1", "to-1");
-            ContentChange changeTwo = new ContentChange(null, true, "from-2", "to-2");
+            ContentChange changeOne = new ContentChange(null, "from-1", "to-1");
+            ContentChange changeTwo = new ContentChange(null, "from-2", "to-2");
 
             List<ContentChange> expecteds = new List<ContentChange> { changeOne, changeTwo };
             List<ContentChange> actuals = new List<ContentChange>();

@@ -31,7 +31,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-                IsRegex = false,
                 From = "x",
                 To = "y"
             };
@@ -55,7 +54,7 @@ namespace ReverserTests
         }
 
         [TestMethod()]
-        public void ChangeForward__SingleFileNotRegex__SwapsFromForTo()  /* working */ 
+        public void ChangeForward__SingleFile__SwapsFromForTo()  /* working */ 
         {
             //**  Arrange.  **//
             string file = "Some-File";
@@ -80,7 +79,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-                IsRegex = false,
                 From = "a",
                 To = "z"
             };
@@ -95,50 +93,7 @@ namespace ReverserTests
         }
 
         [TestMethod()]
-        public void ChangeForward__SingleFileIsRegex__SwapsFromForTo()  /* working */ 
-        {
-            //**  Arrange.  **//
-            string file = "Some-File";
-            string input = "a b c d a b c d";
-
-            string expected = "#-# #-# #-# #-#";
-            string actual = null;
-
-            Mock<IFileStore> _storeMocker = new Mock<IFileStore>();
-
-            _storeMocker.Setup(x => x.Exists(It.IsAny<string>()))
-                .Returns(true);
-            _storeMocker.Setup(x => x.Read(It.IsAny<string>()))
-              .Returns(input);
-
-            // Test condition.
-            _storeMocker.Setup(x => x.Write(It.IsAny<string>(), It.IsAny<string>()))
-                .Callback<string, string>((_, text) => actual = text);
-
-            Changer target = new Changer(_storeMocker.Object);
-
-            ContentChange change = new ContentChange
-            {
-                Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-
-                // The test condition.
-                IsRegex = true,
-
-                From = @"\w\s\w",
-                To = "#-#"
-            };
-
-
-            //**  Act.  **//
-            target.ChangeForward(change);
-
-
-            //**  Assert.  **//
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void ChangeForward__TwoFilesNotRegex__SwapsInBoth()  /* working */ 
+        public void ChangeForward__TwoFiles__SwapsInBoth()  /* working */ 
         {
             //**  Arrange.  **//
             string file = "Some-File";
@@ -163,7 +118,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File-A.txt", @"X:\No\Such\File-B.txt" },
-                IsRegex = false,
                 From = "a",
                 To = "z"
             };
@@ -195,7 +149,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-                IsRegex = false,
                 From = "x",
                 To = "y"
             };
@@ -219,7 +172,7 @@ namespace ReverserTests
         }
 
         [TestMethod()]
-        public void ChangeBack__SingleFileNotRegex__SwapsToForFrom()  /* working */ 
+        public void ChangeBack__SingleFile__SwapsToForFrom()  /* working */ 
         {
             //**  Arrange.  **//
             string file = "Some-File";
@@ -243,8 +196,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-                IsRegex = false,
-
                 // These should be used in reverse.
                 From = "a",
                 To = "z"
@@ -260,55 +211,7 @@ namespace ReverserTests
         }
 
         [TestMethod()]
-        public void ChangeBack__SingleFileIsRegex__SwapsFromForTo()  /* working */ 
-        {
-            /* This is not a realistic use of regex for reversing, 
-             * but proves that the code path itself works right. */
-
-            //**  Arrange.  **//
-            string file = "Some-File";
-            string input = "a b c d a b c d";
-
-            string expected = "#-# #-# #-# #-#";
-            string actual = null;
-
-            Mock<IFileStore> _storeMocker = new Mock<IFileStore>();
-
-            _storeMocker.Setup(x => x.Exists(It.IsAny<string>()))
-                .Returns(true);
-            _storeMocker.Setup(x => x.Read(It.IsAny<string>()))
-              .Returns(input);
-
-            // Test condition.
-            _storeMocker.Setup(x => x.Write(It.IsAny<string>(), It.IsAny<string>()))
-                .Callback<string, string>((_, text) => actual = text);
-
-            Changer target = new Changer(_storeMocker.Object);
-
-            ContentChange change = new ContentChange
-            {
-                Files = new List<string> { @"X:\No\Such\File\Or\Even\Path\Exists\At\All.txt" },
-
-                // The test condition.
-                IsRegex = true,
-
-                // These values are reversed to be usable
-                // with regex in the reverse direction.
-                From = "#-#" ,
-                To = @"\w\s\w"
-            };
-
-
-            //**  Act.  **//
-            target.ChangeBack(change);
-
-
-            //**  Assert.  **//
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod()]
-        public void ChangeBack__TwoFilesNotRegex__SwapsInBoth()  /* working */ 
+        public void ChangeBack__TwoFiles__SwapsInBoth()  /* working */ 
         {
             //**  Arrange.  **//
             string file = "Some-File";
@@ -333,7 +236,6 @@ namespace ReverserTests
             ContentChange change = new ContentChange
             {
                 Files = new List<string> { @"X:\No\Such\File-A.txt", @"X:\No\Such\File-B.txt" },
-                IsRegex = false,
                 From = "a",
                 To = "z"
             };

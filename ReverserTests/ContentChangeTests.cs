@@ -23,7 +23,6 @@ namespace ReverserTests
             ContentChange left = new ContentChange
             {
                 Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
                 From = "abc zyx",
                 To = "xyz cba"
             };
@@ -46,7 +45,6 @@ namespace ReverserTests
             ContentChange left = new ContentChange
             {
                 Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
                 From = "abc zyx",
                 To = "xyz cba"
             };
@@ -54,7 +52,6 @@ namespace ReverserTests
             ContentChange right = new ContentChange
             {
                 Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
 
                 // These are the test condition.
                 From = "abcd zyxw",
@@ -77,7 +74,6 @@ namespace ReverserTests
             ContentChange left = new ContentChange
             {
                 Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
                 From = "abc zyx",
                 To = "xyz cba"
             };
@@ -85,7 +81,6 @@ namespace ReverserTests
             ContentChange right = new ContentChange
             {
                 Files = new List<string> { "a", "b", "t" },
-                IsRegex = true,
                 From = "abc zyx",
                 To = "xyz cba"
             };

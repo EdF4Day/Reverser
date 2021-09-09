@@ -47,7 +47,6 @@ namespace ReverserTests
 File/s:
 C:\Users\Ed\Desktop\Reversible.txt
 
-IsRegex: false
 From: abc
 To: xyz
 ";

@@ -15,8 +15,7 @@ namespace Reverser
         #region Definitions
 
         private const string BLOCK_REGEX = @"\s*File/s:(.*\r\n)+?\s*To:.*";
-        private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*?(?=\s*IsRegex:.*)";
-        private const string ISREGEX_REGEX = @"(?<=\s*IsRegex:).*";
+        private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*?(?=\s*From:.*)";
         private const string FROM_REGEX = @"(?<=\s*From:).*";
         private const string TO_REGEX = @"(?<=\s*To:).*";
 
@@ -64,7 +63,6 @@ namespace Reverser
         {
             ContentChange change = new ContentChange();
             change.Files = ParseFiles(block);
-            change.IsRegex = ParseIsRegex(block);
             change.From = ParseFrom(block);
             change.To = ParseTo(block);
 
@@ -78,16 +76,6 @@ namespace Reverser
             string[] files = text.Split(FILE_SPLIT_LITERAL, StringSplitOptions.RemoveEmptyEntries);
 
             return files.ToList();
-        }
-
-        private bool ParseIsRegex(string block)  /* verified */
-        {
-            string text = Regex.Match(block, ISREGEX_REGEX)
-                .Value
-                .Trim();
-
-            bool value = bool.Parse(text);
-            return value;
         }
 
         private string ParseFrom(string block)  /* verified */
