@@ -6,14 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Reverser
 {
-    public class ViewModel
+    using IMutable = INotifyPropertyChanged;
+
+    public class ViewModel : IMutable
     {
+        #region Definitions, for IMutable
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion Definitions, for IMutable
+
+
         #region Fields
 
         ContentReverser _reverser;
+        bool _isChanging;
+        bool _didThrow;
+        bool _didChange;
 
         #endregion Fields
 
@@ -27,6 +40,51 @@ namespace Reverser
         #endregion Command properties
 
 
+        #region Result properties
+
+        public bool DidThrow
+        {
+            get
+            {
+                return _didThrow;
+            }
+            set
+            {
+                _didThrow = value; 
+                WhenPropertyChanged(nameof(DidThrow));
+            }
+        }
+
+        public bool DidChange
+        {
+            get
+            {
+                return _didChange;
+            }
+            set
+            {
+                _didChange = value; 
+                WhenPropertyChanged(nameof(DidThrow));
+            }
+        }
+
+        #endregion Result properties
+
+
+        #region IMutable
+
+        private void WhenPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChangedEventArgs args = new PropertyChangedEventArgs(name);
+                PropertyChanged(this, args);
+            }
+        }
+
+        #endregion IMutable
+
+
         #region Constructors and dependencies
 
         public ViewModel()  /* verified */
@@ -38,13 +96,13 @@ namespace Reverser
         private void InitCommands()  /* verified */
         {
             ChangeForwardCommand = new Command(
-                (_) => true,
-                (_) => { _reverser.ChangeAllForward(); }
+                TrueWhenNotChanging,
+                ChangeForward
                 );
 
             ChangeBackCommand = new Command(
-                (_) => true,
-                (_) => { _reverser.ChangeAllBack(); }
+                TrueWhenNotChanging,
+                ChangeBack
                 );
 
             ExitCommand = new Command(
@@ -54,5 +112,68 @@ namespace Reverser
         }
 
         #endregion Constructors and dependencies
+
+
+        #region Command implementation methods
+
+        private bool TrueWhenNotChanging(object _)
+        {
+            return !_isChanging;
+        }
+
+        private void ChangeForward(object _)
+        {
+            // Resetting needed for result flashes and button availability.
+            DidChange = false;
+            DidThrow = false;
+            _isChanging = false;
+
+            // Changing forward, and triggering flash / availability.
+            try
+            {
+                _isChanging = true;
+
+                //// Actually changing.
+                //_reverser.ChangeAllForward();
+
+                DidChange = true;
+            }
+            catch
+            {
+                DidThrow = true;
+            }
+
+            // Making buttons available whether it succeeded or threw.
+            _isChanging = false;
+        }
+
+        private void ChangeBack(object _)
+        {
+            // Resetting needed for result flashes and button availability.
+            DidChange = false;
+            DidThrow = false;
+            _isChanging = false;
+
+            // Changing forward, and triggering flash / availability.
+            try
+            {
+                _isChanging = true;
+
+                // Actually changing.
+                _reverser.ChangeAllBack();
+
+                DidChange = true;
+            }
+            catch
+            {
+                DidThrow = true;
+            }
+
+            // Making buttons available whether it succeeded or threw.
+            _isChanging = false;
+        }
+
+        #endregion Command implementation methods
+
     }
 }

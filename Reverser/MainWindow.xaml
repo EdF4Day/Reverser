@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reverser"
         mc:Ignorable="d"
-        Title="Reverser" Height="361.702" Width="622.34" FontSize="36"
+        Title="Reverser" Height="361.702" Width="349.34" FontSize="36"
         >
     <Window.Resources>
         <Style x:Name="GridStyle" TargetType="Grid">
             <Setter Property="Background" Value="MidnightBlue"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DidChange}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="Green" Duration="0:0:01.0" 
+                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
+                                                />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Name="ButtonStyle" TargetType="Button">
             <Setter Property="MinHeight" Value="75"/>

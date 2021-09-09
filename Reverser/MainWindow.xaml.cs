@@ -20,14 +20,26 @@ namespace Reverser
 {
     public partial class MainWindow : Window
     {
+        #region Fields
+
         ViewModel _vm;
 
-        public MainWindow()
+        #endregion Fields
+
+
+        #region Constructors
+
+        public MainWindow()  /* verified */
         {
+            // View-model first, so components
+            // can use its content if needed.
             _vm = new ViewModel();
             this.DataContext = _vm;
 
+            // Boilerplate.
             InitializeComponent();
         }
+
+        #endregion Constructors
     }
 }
