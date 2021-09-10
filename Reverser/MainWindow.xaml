@@ -68,7 +68,7 @@
             </Button.RenderTransform>
         </Button>
         
-        <Button x:Name="ExitButton" Command="{Binding ExitCommand}" Content="&#x2716;" ToolTip="Back" 
+        <Button x:Name="ExitButton" Command="{Binding ExitCommand}" Content="&#x2716;" ToolTip="Exit" 
                 FontSize="42"
             HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom">
         </Button>
