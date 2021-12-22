@@ -72,7 +72,13 @@
                 FontSize="42"
             HorizontalAlignment="Right" Margin="0,0,20,20" VerticalAlignment="Bottom">
         </Button>
-        <ListBox HorizontalAlignment="Left" Height="167" Margin="18,10,0,0" VerticalAlignment="Top" Width="175"/>
-
+        <Label Content="Change Sources:" 
+               HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top" Padding="5, 0"
+               Foreground="White"
+               FontSize="12" FontWeight="Bold" Width="121" Height="20"
+               />
+        <ListBox HorizontalAlignment="Left" Height="142" Margin="18,35,0,0" VerticalAlignment="Top" Width="175" 
+                 FontSize="12" FontWeight="Bold"
+                 />
     </Grid>
 </Window>
