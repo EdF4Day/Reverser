@@ -56,14 +56,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Changer.cs" />
+    <Compile Include="ConfigChangeSource.cs" />
     <Compile Include="ContentChange.cs" />
     <Compile Include="ContentReverser.cs" />
-    <Compile Include="ChangeSource.cs" />
+    <Compile Include="FileChangeSource.cs" />
+    <Compile Include="FileSource.cs" />
     <Compile Include="FileStore.cs" />
     <Compile Include="IChanger.cs" />
     <Compile Include="IChangeSource.cs" />
     <Compile Include="IFileStore.cs" />
     <Compile Include="IReversalParser.cs" />
+    <Compile Include="ObservableCollectionExtensions.cs" />
     <Compile Include="ReversalParser.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">

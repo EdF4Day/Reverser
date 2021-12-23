@@ -77,8 +77,11 @@
                Foreground="White"
                FontSize="12" FontWeight="Bold" Width="121" Height="20"
                />
-        <ListBox HorizontalAlignment="Left" Height="142" Margin="18,35,0,0" VerticalAlignment="Top" Width="175" 
-                 FontSize="12" FontWeight="Bold"
+        <ListBox x:Name="FilesListBox"
+                 AllowDrop="True"
+                 HorizontalAlignment="Left" Height="142" Margin="18,35,0,0" VerticalAlignment="Top" Width="175" 
+                 ItemsSource="{Binding Files}"
+                 FontSize="12" FontWeight="Bold" DragOver="WhenDraggedOverFilesListBox" Drop="WhenDroppedOnFilesListBox"
                  />
     </Grid>
 </Window>

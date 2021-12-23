@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,37 @@ namespace Reverser
 
         #region Fields
 
-        ContentReverser _reverser;
-        bool _isChanging;
-        bool _didThrow;
-        bool _didChange;
+        private ContentReverser _reverser;
+
+        private ObservableCollection<string> _files = new ObservableCollection<string>();
+
+        private bool _isChanging;
+        private bool _didThrow;
+        private bool _didChange;
 
         #endregion Fields
+
+
+        #region Properties
+
+        public ObservableCollection<string> Files
+        {
+            get
+            {
+                return _files;
+            }
+            set
+            {
+                _files = value;
+                _reverser.ChangeSources = _files
+                    .Select(x => new FileChangeSource(x))
+                    .ToList<IChangeSource>();
+
+                WhenPropertyChanged(nameof(Files));
+            }
+        }
+
+        #endregion Properties
 
 
         #region Command properties

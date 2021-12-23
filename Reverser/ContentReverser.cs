@@ -13,18 +13,24 @@ namespace Reverser
     {
         #region Components
 
-        IChangeSource _source;
-        IReversalParser _parser;
-        IChanger _changer;
+        private IReversalParser _parser;
+        private IChanger _changer;
 
         #endregion Components
 
 
+        #region Properties
+
+        public List<IChangeSource> ChangeSources { get; set; } = new List<IChangeSource>();
+
+        #endregion Properties
+
+
         #region Constructors
 
-        public ContentReverser(IChangeSource source = null, IReversalParser parser = null, IChanger changer = null)
+        public ContentReverser(List<IChangeSource> sources = null, IReversalParser parser = null, IChanger changer = null)
         {
-            _source = source ?? new ChangeSource();
+            ChangeSources = sources ?? new List<IChangeSource> { new ConfigChangeSource() };
             _parser = parser ?? new ReversalParser();
             _changer = changer ?? new Changer();
         }
@@ -34,25 +40,31 @@ namespace Reverser
 
         #region Key methods
 
-        public void ChangeAllForward()  /* passed */
+        public void ChangeAllForward()
         {
-            string source = _source.SourceText;
-            List<ContentChange> changes = _parser.ParseToChanges(source);
-
-            foreach (ContentChange change in changes)
+            foreach (IChangeSource changeSource in ChangeSources)
             {
-                _changer.ChangeForward(change);
+                string source = changeSource.SourceText;
+                List<ContentChange> changes = _parser.ParseToChanges(source);
+
+                foreach (ContentChange change in changes)
+                {
+                    _changer.ChangeForward(change);
+                }
             }
         }
 
-        public void ChangeAllBack()  /* passed */
+        public void ChangeAllBack()
         {
-            string source = _source.SourceText;
-            List<ContentChange> changes = _parser.ParseToChanges(source);
-
-            foreach (ContentChange change in changes)
+            foreach (IChangeSource changeSource in ChangeSources)
             {
-                _changer.ChangeBack(change);
+                string source = changeSource.SourceText;
+                List<ContentChange> changes = _parser.ParseToChanges(source);
+
+                foreach (ContentChange change in changes)
+                {
+                    _changer.ChangeBack(change);
+                }
             }
         }
 

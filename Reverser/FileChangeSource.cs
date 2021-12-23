@@ -1,18 +1,18 @@
 ﻿
-#pragma warning disable
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Reverser
 {
-    public class ChangeSource : IChangeSource
+    public class FileChangeSource : IChangeSource
     {
         #region Fields
 
+        private string _path;
         private string _sourceText;
 
         #endregion Fields
@@ -37,9 +37,9 @@ namespace Reverser
 
         #region Constructors
 
-        public ChangeSource()  /* ok */
+        public FileChangeSource(string path)
         {
-            /* No operations. */
+            _path = path;
         }
 
         #endregion Constructors
@@ -47,9 +47,14 @@ namespace Reverser
 
         #region Dependencies of .SourceText
 
-        private string ReadSource()  /* verified */
+        private string ReadSource()
         {
-            string source = Properties.Settings.Default.Reversings;
+            if (!File.Exists(_path))
+            {
+                return string.Empty;
+            }
+
+            string source = File.ReadAllText(_path);
             return source;
         }
 
