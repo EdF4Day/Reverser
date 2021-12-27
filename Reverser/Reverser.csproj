@@ -62,6 +62,7 @@
     <Compile Include="FileChangeSource.cs" />
     <Compile Include="FileSource.cs" />
     <Compile Include="FileStore.cs" />
+    <Compile Include="FullAndFriendly.cs" />
     <Compile Include="IChanger.cs" />
     <Compile Include="IChangeSource.cs" />
     <Compile Include="IFileStore.cs" />
