@@ -55,15 +55,6 @@ namespace Reverser
             {
                 ReplaceFilesWithFiles(argFiles);
             }
-
-            if (argFiles.Count == 0)
-            {
-                FileDuple pseudo = new FileDuple(null);
-                pseudo.FriendlyName = "[config file]";
-
-                List<FileDuple> defaulting = new List<FileDuple> { pseudo };
-                _vm.Files = new ObservableCollection<FileDuple>(defaulting);
-            }
         }
 
         #endregion Constructors and dependencies

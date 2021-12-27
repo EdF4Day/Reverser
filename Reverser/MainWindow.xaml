@@ -41,6 +41,15 @@
             <Setter Property="FontSize" Value="56"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
+        <Style x:Key="DefaultSourceStyle" TargetType="Label">
+            <Setter Property="Panel.ZIndex" Value="-1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Files.Count}" Value="0">
+                    <Setter Property="Panel.ZIndex" Value="10"/>
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Window.InputBindings>
@@ -83,5 +92,10 @@
                  ItemsSource="{Binding Files}"
                  FontSize="12" FontWeight="Bold" DragOver="WhenDraggedOverFilesListBox" Drop="WhenDroppedOnFilesListBox" DisplayMemberPath="FriendlyName"
                  />
+        <Label Content="[ Using App.config ]" Style="{StaticResource DefaultSourceStyle}"
+               HorizontalAlignment="Left" Height="30" Margin="26,45,0,0" VerticalAlignment="Top" Width="158"
+               FontSize="12" FontWeight="Bold" 
+               AllowDrop="True" DragOver="WhenDraggedOverFilesListBox" Drop="WhenDroppedOnFilesListBox" 
+               />
     </Grid>
 </Window>
