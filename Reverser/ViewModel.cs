@@ -26,7 +26,7 @@ namespace Reverser
 
         private ContentReverser _reverser;
 
-        private ObservableCollection<FileDuples> _files = new ObservableCollection<FileDuples>();
+        private ObservableCollection<FileDuple> _files = new ObservableCollection<FileDuple>();
 
         private bool _isChanging;
         private bool _didThrow;
@@ -37,7 +37,7 @@ namespace Reverser
 
         #region Properties
 
-        public ObservableCollection<FileDuples> Files
+        public ObservableCollection<FileDuple> Files
         {
             get
             {

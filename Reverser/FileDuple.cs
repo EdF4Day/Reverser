@@ -14,24 +14,24 @@ namespace Reverser
     /// A DTO that keeps a full path of a file and a friendly name for it together.
     /// Encapsulates the problem of keeping these together for display and file reading.
     /// </summary>
-    public class FileDuples
+    public class FileDuple
     {
         public string FullPath { get; set; }
         public string FriendlyName { get; set; }
 
-        public FileDuples(string path)
+        public FileDuple(string path)
         {
             FullPath = path;
             FriendlyName = Path.GetFileName(path);
         }
 
-        public static List<FileDuples> InstancesFromPaths(List<string> paths)
+        public static List<FileDuple> InstancesFromPaths(List<string> paths)
         {
-            List<FileDuples> instances = new List<FileDuples>();
+            List<FileDuple> instances = new List<FileDuple>();
 
             foreach (string path in paths)
             {
-                FileDuples instance = new FileDuples(path);
+                FileDuple instance = new FileDuple(path);
                 instances.Add(instance);
             }
 

@@ -55,6 +55,15 @@ namespace Reverser
             {
                 ReplaceFilesWithFiles(argFiles);
             }
+
+            if (argFiles.Count == 0)
+            {
+                FileDuple pseudo = new FileDuple(null);
+                pseudo.FriendlyName = "[config file]";
+
+                List<FileDuple> defaulting = new List<FileDuple> { pseudo };
+                _vm.Files = new ObservableCollection<FileDuple>(defaulting);
+            }
         }
 
         #endregion Constructors and dependencies
@@ -90,14 +99,14 @@ namespace Reverser
 
         private void AddFilesToFiles(List<string> files)
         {
-            List<FileDuples> duples = FileDuples.InstancesFromPaths(files);
+            List<FileDuple> duples = FileDuple.InstancesFromPaths(files);
             _vm.Files.AddRange(duples);
         }
 
         private void ReplaceFilesWithFiles(List<string> files)
         {
-            List<FileDuples> duples = FileDuples.InstancesFromPaths(files);
-            _vm.Files = new ObservableCollection<FileDuples>(duples);
+            List<FileDuple> duples = FileDuple.InstancesFromPaths(files);
+            _vm.Files = new ObservableCollection<FileDuple>(duples);
         }
 
         private bool CtrlKeyIsPressed(DragEventArgs e)
