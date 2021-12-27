@@ -26,7 +26,7 @@ namespace Reverser
 
         private ContentReverser _reverser;
 
-        private ObservableCollection<string> _files = new ObservableCollection<string>();
+        private ObservableCollection<FileDuples> _files = new ObservableCollection<FileDuples>();
 
         private bool _isChanging;
         private bool _didThrow;
@@ -37,7 +37,7 @@ namespace Reverser
 
         #region Properties
 
-        public ObservableCollection<string> Files
+        public ObservableCollection<FileDuples> Files
         {
             get
             {
@@ -46,8 +46,10 @@ namespace Reverser
             set
             {
                 _files = value;
+
+                // Setting this property is also setting the change sources.
                 _reverser.ChangeSources = _files
-                    .Select(x => new FileChangeSource(x))
+                    .Select(x => new FileChangeSource(x.FullPath))
                     .ToList<IChangeSource>();
 
                 WhenPropertyChanged(nameof(Files));

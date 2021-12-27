@@ -90,12 +90,14 @@ namespace Reverser
 
         private void AddFilesToFiles(List<string> files)
         {
-            _vm.Files.AddRange(files);
+            List<FileDuples> duples = FileDuples.InstancesFromPaths(files);
+            _vm.Files.AddRange(duples);
         }
 
         private void ReplaceFilesWithFiles(List<string> files)
         {
-            _vm.Files = new ObservableCollection<string>(files);
+            List<FileDuples> duples = FileDuples.InstancesFromPaths(files);
+            _vm.Files = new ObservableCollection<FileDuples>(duples);
         }
 
         private bool CtrlKeyIsPressed(DragEventArgs e)
