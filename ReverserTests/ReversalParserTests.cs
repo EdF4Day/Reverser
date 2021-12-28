@@ -30,6 +30,7 @@ X:\Some\Path\Reversible.txt
 
 From: abc
 To: xyz
+:End
 ";
 
 
@@ -43,6 +44,47 @@ To: xyz
                 Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
                 From = "abc",
                 To = "xyz"
+            };
+
+            List<ContentChange> expecteds = new List<ContentChange> { expected };
+
+            CollectionAssert.AreEqual(expecteds, actuals);
+        }
+
+        [TestMethod()]
+        public void ParseToChanges__SingleChangeBlockWithMultilineChange__CorrectOutputChangeObject()  /* working */ 
+        {
+            //**  Arrange.  **//
+            ReversalParser target = new ReversalParser();
+            string source =
+@"
+File/s:
+X:\Some\Path\Reversible.txt
+Y:\Some\Path\Reversible.txt
+
+From:abc
+def
+ghi
+
+To:
+rst
+uvw
+xyz
+
+:End
+";
+
+
+            //**  Act.  **//
+            List<ContentChange> actuals = target.ParseToChanges(source);
+
+
+            //**  Assert.  **//
+            ContentChange expected = new ContentChange()
+            {
+                Files = new List<string> { @"X:\Some\Path\Reversible.txt", @"Y:\Some\Path\Reversible.txt" },
+                From = "abc\r\ndef\r\nghi\r\n",
+                To = "\r\nrst\r\nuvw\r\nxyz\r\n"
             };
 
             List<ContentChange> expecteds = new List<ContentChange> { expected };
@@ -65,6 +107,7 @@ X:\Yet\Another\Path\Of\Some\Kind\Reversible-D.txt
 
 From: abc
 To: xyz
+:End
 ";
 
 
@@ -102,12 +145,14 @@ X:\Some\Path\Reversible.txt
 
 From: abc
 To: xyz
+:End
 
 File/s:
 X:\Some\Other\Path\AnotherReversible.txt
 
 From: [qrs]{0:2}
 To: abc
+:End
 
 ";
 
@@ -137,6 +182,62 @@ To: abc
         }
 
         [TestMethod()]
+        public void ParseToChanges__TwoChangeBlocksMultilineChanges__CorrectOutputChangeObjects()  /* working */ 
+        {
+            //**  Arrange.  **//
+            ReversalParser target = new ReversalParser();
+            string source =
+@"
+File/s:
+X:\Some\Path\Reversible.txt
+
+From:
+abc
+123
+
+To:456
+xyz
+:End
+
+File/s:
+X:\Some\Other\Path\AnotherReversible.txt
+
+From:[qrs]{0:2}
+(?<=abc)xyz
+To:
+abc
+123
+
+:End
+
+";
+
+
+            //**  Act.  **//
+            List<ContentChange> actuals = target.ParseToChanges(source);
+
+
+            //**  Assert.  **//
+            ContentChange expFirst = new ContentChange()
+            {
+                Files = new List<string> { @"X:\Some\Path\Reversible.txt" },
+                From = "\r\nabc\r\n123\r\n",
+                To = "456\r\nxyz"
+            };
+
+            ContentChange expSecond = new ContentChange()
+            {
+                Files = new List<string> { @"X:\Some\Other\Path\AnotherReversible.txt" },
+                From = "[qrs]{0:2}\r\n(?<=abc)xyz",
+                To = "\r\nabc\r\n123\r\n"
+            };
+
+            List<ContentChange> expecteds = new List<ContentChange> { expFirst, expSecond };
+
+            CollectionAssert.AreEqual(expecteds, actuals);
+        }
+
+        [TestMethod()]
         public void ParseToChanges__TwoChangeBlocksMixedSpacing__CorrectOutputChangeObjects()  /* working */
         {
             //**  Arrange.  **//
@@ -148,19 +249,14 @@ To: abc
 X:\Some\Path\Reversible.txt
 
 From: abc
-
-
 To: xyz
+:End
 File/s:
+
 X:\Some\Other\Path\AnotherReversible.txt
 From:  [qrs]{0:2}
-
-
-
-
-
-
-To: abc";
+To: abc
+:End";
 
 
             //**  Act.  **//
@@ -188,40 +284,33 @@ To: abc";
         }
 
         [TestMethod()]
-        public void ParseToChanges__TwoChangeBlocksIntermixedOtherText__CorrectOutputChangeObjects()  /* working */
+        public void ParseToChanges__TwoChangeBlocksCommentsBetween__CorrectOutputChangeObjects()  /* working */
         {
             //**  Arrange.  **//
             ReversalParser target = new ReversalParser();
             string source =
-@"#First block:
+@"
+# This initial comment should be ignored.
+
 File/s:
-
-
 X:\Some\Path\Reversible.txt
 
 From: abc
-# The ""From"" line is the text to be found and changed.
-# Comments can't come between ""File/s:"" and ""From:"", 
-  because then they're treated as targeted files.
-
-
-# This text replaces whatever is found in ""From"":
 To: xyz
+:End
 
-/* Second block: */
+# These comments say something.
+# Even if there are multiple lines of these,
+and they don't all have leading #s, 
+they should be completely ignored.
+
 File/s:
 X:\Some\Other\Path\AnotherReversible.txt
 
-From:  [qrs]{0:2}
-
+From: [qrs]{0:2}
 To: abc
-
-
-
-
-
-
-
+:End
+# And this should also be ignored.
 ";
 
 

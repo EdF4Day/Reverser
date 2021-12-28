@@ -14,13 +14,19 @@ namespace Reverser
     {
         #region Definitions
 
-        private const string BLOCK_REGEX = @"\s*File/s:(.*\r\n)+?\s*To:.*";
-        private const string FILES_REGEX = @"(?<=\s*File/s:.*\r\n)(.*\r\n)*?(?=\s*From:.*)";
-        private const string FROM_REGEX = @"(?<=\s*From:).*";
-        private const string TO_REGEX = @"(?<=\s*To:).*";
+        // A block is everything from a `File/s:` through an `:End`.
+        private const string BLOCK_REGEX = @"(?<=(\A|\n))File/s:.*?:End";
 
-        private static readonly string[] FILE_SPLIT_LITERAL = { Environment.NewLine };
-        private const string VALUE_REGEX = @":.*";
+        // The files are everything after the `File/s:` but before the `From:`.
+        private const string FILES_REGEX = @"(?<=File/s:.*\r\n).*?(?=\r\nFrom:.*)";
+
+        // The from is everything between `From:` and `To:`, trimmed if one line.
+        private const string FROM_REGEX = @"(?<=\s*From:).*?(?=\r\nTo:)";
+
+        // The to is everything between `To:` and `:End`, trimmed if one line.
+        private const string TO_REGEX = @"(?<=\s*To:).*(?=\r\n:End)";
+
+        private static readonly string[] LINE_SPLIT_LITERAL = { Environment.NewLine };
 
         #endregion Definitions
 
@@ -39,19 +45,28 @@ namespace Reverser
 
         public List<ContentChange> ParseToChanges(string source)  /* passed */
         {
-            MatchCollection blocks = Regex.Matches(source, BLOCK_REGEX);
-
-            List<ContentChange> changes = new List<ContentChange>();
-
-            foreach (Match block in blocks)
+            try
             {
-                string text = block.Value;
+                MatchCollection blocks = Regex.Matches(source, BLOCK_REGEX, RegexOptions.Singleline);
 
-                ContentChange change = ParseBlock(text);
-                changes.Add(change);
+                List<ContentChange> changes = new List<ContentChange>();
+
+                foreach (Match block in blocks)
+                {
+                    string text = block.Value;
+
+                    ContentChange change = ParseBlock(text);
+                    changes.Add(change);
+                }
+
+                return changes;
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x);
             }
 
-            return changes;
+            return null;
         }
 
         #endregion IReversalParser
@@ -71,27 +86,39 @@ namespace Reverser
 
         private List<string> ParseFiles(string block)  /* verified */
         {
-            Match section = Regex.Match(block, FILES_REGEX);
+            Match section = Regex.Match(block, FILES_REGEX, RegexOptions.Singleline);
             string text = section.Value;
-            string[] files = text.Split(FILE_SPLIT_LITERAL, StringSplitOptions.RemoveEmptyEntries);
+            string[] files = text.Split(LINE_SPLIT_LITERAL, StringSplitOptions.RemoveEmptyEntries);
 
             return files.ToList();
         }
 
         private string ParseFrom(string block)  /* verified */
         {
-            string text = Regex.Match(block, FROM_REGEX)
-                .Value
-                .Trim();
+            string text = Regex.Match(block, FROM_REGEX, RegexOptions.Singleline)
+                .Value;
+
+            text = SimplifyIfSingleLine(text);
 
             return text;
         }
 
         private string ParseTo(string block)  /* verified */
         {
-            string text = Regex.Match(block, TO_REGEX)
-                .Value
-                .Trim();
+            string text = Regex.Match(block, TO_REGEX, RegexOptions.Singleline)
+                .Value;
+
+            text = SimplifyIfSingleLine(text);
+
+            return text;
+        }
+
+        private string SimplifyIfSingleLine(string text)  /* verified */ 
+        {
+            if (!text.Contains(Environment.NewLine))
+            {
+                text = text.Trim();
+            }
 
             return text;
         }
