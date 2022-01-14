@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reverser"
         mc:Ignorable="d"
-        Title="Reverser" Height="361.702" Width="349.34" FontSize="36"
+        Title="Reverser" 
+        Height="362" Width="479" MinHeight="362" MinWidth="350" 
+        FontSize="36"
         >
     <Window.Resources>
         <Style x:Name="GridStyle" TargetType="Grid">
@@ -88,7 +90,7 @@
                />
         <ListBox x:Name="FilesListBox"
                  AllowDrop="True"
-                 HorizontalAlignment="Left" Height="142" Margin="18,35,0,0" VerticalAlignment="Top" Width="175" 
+                 HorizontalAlignment="Stretch" Margin="18,35,142,146" VerticalAlignment="Stretch" 
                  ItemsSource="{Binding Files}"
                  FontSize="12" FontWeight="Bold" DragOver="WhenDraggedOverFilesListBox" Drop="WhenDroppedOnFilesListBox" DisplayMemberPath="FriendlyName"
                  />
